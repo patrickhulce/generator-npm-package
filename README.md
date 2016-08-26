@@ -1,4 +1,4 @@
-# generator-npm-package [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+# generator-npm-package [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > Generator for an open-source node module.
 
 ## Installation
@@ -28,8 +28,6 @@ yo npm-package
 MIT © [Patrick Hulce](https://patrickhulce.com/)
 
 
-[npm-image]: https://badge.fury.io/js/generator-npm-package.svg
-[npm-url]: https://npmjs.org/package/generator-npm-package
 [travis-image]: https://travis-ci.org/patrickhulce/generator-npm-package.svg?branch=master
 [travis-url]: https://travis-ci.org/patrickhulce/generator-npm-package
 [daviddm-image]: https://david-dm.org/patrickhulce/generator-npm-package.svg?theme=shields.io
