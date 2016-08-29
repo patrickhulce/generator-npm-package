@@ -5,7 +5,12 @@ var helpers = require('yeoman-test');
 describe('generator-npm-package:app', function () {
   before(function () {
     return helpers.run(path.join(__dirname, '../generators/app'))
-      .withPrompts({name: 'sample-app', description: 'sample description'})
+      .withPrompts({
+        name: 'sample-app',
+        description: 'sample description',
+        initGitHub: false,
+        initSemanticRelease: false,
+      })
       .toPromise();
   });
 
