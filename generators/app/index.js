@@ -43,7 +43,6 @@ module.exports = yeoman.Base.extend({
     [
       ['LICENSE', 'LICENSE'],
       ['README.md', 'README.md'],
-      ['eslintrc', '.eslintrc'],
       ['gitignore', '.gitignore'],
       ['travis.yml', '.travis.yml'],
       ['package.json', 'package.json'],
@@ -63,7 +62,7 @@ module.exports = yeoman.Base.extend({
   install: function () {
     this.npmInstall(['lodash'], {save: true});
     this.npmInstall([
-      'mocha', 'sinon', 'sinon-chai', 'chai', 'xo',
+      'mocha', 'sinon', 'sinon-chai', 'chai', 'patrickhulce/xo#master',
       'cz-conventional-changelog', 'istanbul', 'semantic-release'
     ], {saveDev: true});
   },
