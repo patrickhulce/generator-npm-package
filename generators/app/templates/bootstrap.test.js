@@ -3,8 +3,8 @@ var sinon = require('sinon');
 
 chai.use(require('sinon-chai'));
 
-global.expect = chai.expect();
-global.createSandbox = () => sinon.sandbox.create();
+global.sinon = sinon;
+global.expect = chai.expect;
 global.relativeRequire = file => require('../lib/' + file);
 global.defineTest = (file, func) => {
   describe(file, function () {

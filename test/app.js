@@ -10,16 +10,18 @@ describe('generator-npm-package:app', function () {
         description: 'sample description',
         initGitHub: false,
         initSemanticRelease: false,
+        includeBrowserPackaging: true,
       })
       .toPromise();
   });
 
   it('creates files', function () {
     assert.file([
-      '.eslintrc',
+      '.babelrc',
       '.gitignore',
       '.travis.yml',
       'package.json',
+      'rollup.config.js',
       'README.md',
       'LICENSE',
       'lib/index.js',

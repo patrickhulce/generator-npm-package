@@ -24,6 +24,11 @@ module.exports = yeoman.Base.extend({
       },
       {
         type: 'confirm',
+        name: 'includeBrowserPackaging',
+        message: 'Include browser packaging?',
+      },
+      {
+        type: 'confirm',
         name: 'initGitHub',
         message: 'Create the repo on GitHub?',
       },
@@ -49,12 +54,19 @@ module.exports = yeoman.Base.extend({
       ['index.js', 'lib/index.js'],
       ['index.test.js', 'test/index.test.js'],
       ['bootstrap.test.js', 'test/bootstrap.js'],
+      ['babelrc', '.babelrc', this.props.includeBrowserPackaging],
+      ['rollup.config.js', 'rollup.config.js', this.props.includeBrowserPackaging],
     ].forEach(item => {
+      if (typeof item[2] !== 'undefined' && !item[2]) {
+        return;
+      }
+
       var src = this.templatePath(item[0]);
       var dest = this.destinationPath(item[1]);
       this.fs.copyTpl(src, dest, {
         name: this.props.name,
         description: this.props.description,
+        includeBrowserPackaging: this.props.includeBrowserPackaging
       });
     });
   },
@@ -65,6 +77,12 @@ module.exports = yeoman.Base.extend({
       'mocha', 'sinon', 'sinon-chai', 'chai', 'patrickhulce/xo#master',
       'cz-conventional-changelog', 'istanbul', 'semantic-release'
     ], {saveDev: true});
+
+    if (this.props.includeBrowserPackaging) {
+      this.npmInstall([
+        'babel', 'babel-cli', 'rollup', 'rollup-plugin-babel'
+      ], {saveDev: true});
+    }
   },
 
   end: function () {
