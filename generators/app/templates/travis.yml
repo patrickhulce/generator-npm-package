@@ -13,6 +13,9 @@ before_install:
 before_script:
   - npm prune
 script:
+<% if (includeBrowserPackaging) { %>
+  - npm run rebuild
+<% } %>
   - npm run test:lint
   - npm run test:coverage
 after_success:

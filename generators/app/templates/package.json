@@ -5,9 +5,12 @@
   "main": "./lib/index.js",
   "scripts": {<% if (includeBrowserPackaging) { %>
     "clean": "rm -fR dist/",
+    "rebuild": "npm run clean && npm run build",
+    "prepublish": "npm run rebuild",
     "build": "babel lib --out-dir dist/ && BABEL_ENV=rollup rollup -c rollup.config.js",<% } %>
-    "test": "xo ./lib/**/*.js && mocha --reporter spec --require test/bootstrap test/*.test.js test/**/*.test.js",
-    "test:lint": "xo ./lib/**/*.js",
+    "test": "npm run test:lint && npm run test:unit",
+    "test:unit": "mocha --reporter spec --require test/bootstrap test/*.test.js test/**/*.test.js"
+    "test:lint": "xo ./lib/**/*.js ./test/**/*.js",
     "test:coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --require test/bootstrap test/*.test.js test/**/*.test.js",
     "test:watch": "mocha --watch --reporter dot --require test/bootstrap test/*.test.js test/**/*.test.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
