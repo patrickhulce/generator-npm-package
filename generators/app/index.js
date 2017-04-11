@@ -74,7 +74,7 @@ module.exports = yeoman.Base.extend({
   install: function () {
     this.npmInstall(['lodash'], {save: true});
     this.npmInstall([
-      'mocha', 'sinon', 'sinon-chai', 'chai', 'patrickhulce/xo#master',
+      'mocha', 'sinon', 'sinon-chai', 'chai', '@patritech/lint',
       'cz-conventional-changelog', 'istanbul', 'semantic-release'
     ], {saveDev: true});
 

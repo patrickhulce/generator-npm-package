@@ -10,7 +10,7 @@
     "build": "babel lib --out-dir dist/ && BABEL_ENV=rollup rollup -c rollup.config.js",<% } %>
     "test": "npm run test:lint && npm run test:unit",
     "test:unit": "mocha --reporter spec --require test/bootstrap 'test/**/*.test.js'",
-    "test:lint": "xo './lib/**/*.js' './test/**/*.test.js'",
+    "test:lint": "lint",
     "test:coverage": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- --require test/bootstrap 'test/**/*.test.js'",
     "test:watch": "mocha --watch --reporter dot --require test/bootstrap 'test/**/*.test.js'",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
@@ -25,13 +25,6 @@
     "url": "https://github.com/patrickhulce/<%= name %>/issues"
   },
   "homepage": "https://github.com/patrickhulce/<%= name %>#readme",
-  "xo": {
-    "env": [
-      "browser",
-      "node",
-      "mocha"
-    ]
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
