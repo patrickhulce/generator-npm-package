@@ -72,17 +72,22 @@ module.exports = yeoman.Base.extend({
   },
 
   install: function () {
-    this.npmInstall(['lodash'], {save: true});
-    this.npmInstall([
-      'mocha', 'sinon', 'sinon-chai', 'chai', '@patrickhulce/lint',
-      'cz-conventional-changelog', 'istanbul', 'semantic-release'
-    ], {saveDev: true});
+    var yo = this;
+    var done = this.async();
 
-    if (this.props.includeBrowserPackaging) {
-      this.npmInstall([
-        'babel', 'babel-cli', 'rollup', 'rollup-plugin-babel'
-      ], {saveDev: true});
-    }
+    yo.spawnCommand('yarn', ['add', 'lodash']).on('close', function () {
+      var dependencies = [
+        'mocha', 'sinon', 'sinon-chai', 'chai', '@patrickhulce/lint',
+        'cz-conventional-changelog', 'istanbul', 'semantic-release'
+      ];
+
+      if (yo.props.includeBrowserPackaging) {
+        dependencies.push('babel', 'babel-cli', 'rollup', 'rollup-plugin-babel');
+      }
+
+      var yarnArgs =  ['add', '-D'].concat(dependencies);
+      yo.spawnCommand('yarn', yarnArgs).on('close', done);
+    });
   },
 
   end: function () {
