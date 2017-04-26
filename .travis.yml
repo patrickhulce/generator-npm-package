@@ -8,7 +8,7 @@ node_js:
   - v6
   - v5
   - v4
-before_script:
-  - npm prune
+before_install:
+  - npm install -g yarn
 script:
-  - npm test 
+  - npm test
