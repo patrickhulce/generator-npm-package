@@ -75,18 +75,18 @@ module.exports = yeoman.Base.extend({
     var yo = this;
     var done = this.async();
 
-    yo.spawnCommand('yarn', ['add', 'lodash']).on('close', function () {
-      var dependencies = [
-        'mocha', 'sinon', 'sinon-chai', 'chai', '@patrickhulce/lint',
-        'cz-conventional-changelog', 'istanbul', 'semantic-release'
-      ];
+    var dependencies = [
+      'mocha', 'sinon', 'sinon-chai', 'chai', '@patrickhulce/lint',
+      'cz-conventional-changelog', 'istanbul', 'semantic-release'
+    ];
 
-      if (yo.props.includeBrowserPackaging) {
-        dependencies.push('babel', 'babel-cli', 'rollup', 'rollup-plugin-babel');
-      }
+    if (yo.props.includeBrowserPackaging) {
+      dependencies.push('babel', 'babel-cli', 'babel-preset-es2015', 'rollup', 'rollup-plugin-babel');
+    }
 
-      var yarnArgs =  ['add', '-D'].concat(dependencies);
-      yo.spawnCommand('yarn', yarnArgs).on('close', done);
+    var yarnArgs =  ['add', '-D'].concat(dependencies);
+    yo.spawnCommand('yarn', yarnArgs).on('exit', function () {
+      done();
     });
   },
 

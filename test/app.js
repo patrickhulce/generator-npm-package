@@ -6,6 +6,7 @@ var helpers = require('yeoman-test');
 describe('generator-npm-package:app', function () {
   var tmpDir = ''
   before(function () {
+    this.timeout(60000);
     return helpers.run(path.join(__dirname, '../generators/app'))
       .withPrompts({
         name: 'sample-app',
@@ -26,6 +27,7 @@ describe('generator-npm-package:app', function () {
       '.gitignore',
       '.travis.yml',
       'package.json',
+      'yarn.lock',
       'rollup.config.js',
       'README.md',
       'LICENSE',
