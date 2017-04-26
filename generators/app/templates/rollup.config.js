@@ -7,5 +7,5 @@ module.exports = {
   targets: [
     {dest: 'dist/bundle.js', format: 'umd'},
     {dest: 'dist/bundle.cjs.js', format: 'cjs'},
-  ]
+  ],
 }

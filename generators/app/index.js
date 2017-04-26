@@ -74,7 +74,7 @@ module.exports = yeoman.Base.extend({
   install: function () {
     this.npmInstall(['lodash'], {save: true});
     this.npmInstall([
-      'mocha', 'sinon', 'sinon-chai', 'chai', '@patritech/lint',
+      'mocha', 'sinon', 'sinon-chai', 'chai', '@patrickhulce/lint',
       'cz-conventional-changelog', 'istanbul', 'semantic-release'
     ], {saveDev: true});
 
@@ -89,12 +89,13 @@ module.exports = yeoman.Base.extend({
     var yo = this;
     var done = this.async();
 
-    var createGitHub = function (cb) {
+    var createGitHub = function (otp, cb) {
       if (yo.props.initGitHub) {
         var payload = JSON.stringify({name: yo.props.name});
 
         yo.spawnCommand('curl', [
           '-u', 'patrick.hulce@gmail.com',
+          '-H', `X-GitHub-OTP: ${otp}`,
           'https://api.github.com/user/repos',
           '-d', payload, '-o', '/dev/null',
         ]).on('close', function () {
@@ -118,9 +119,20 @@ module.exports = yeoman.Base.extend({
     };
 
     yo.spawnCommand('git', ['init']).on('close', function () {
-      createGitHub(function () {
-        semanticReleaseSetup(done);
-      });
+      const promise = yo.props.initGitHub ?
+        yo.prompt([
+          {
+            type: 'input',
+            name: 'otp',
+            message: 'GitHub OTP',
+          }
+        ]) :
+        Promise.resolve({});
+      promise.then(props => {
+        createGitHub(props.otp, function () {
+          semanticReleaseSetup(done);
+        });
+      }).catch(done);
     });
   }
 });
