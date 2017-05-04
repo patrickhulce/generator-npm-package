@@ -53,7 +53,6 @@ module.exports = yeoman.Base.extend({
       ['package.json', 'package.json'],
       ['index.js', 'lib/index.js'],
       ['index.test.js', 'test/index.test.js'],
-      ['bootstrap.test.js', 'test/bootstrap.js'],
       ['babelrc', '.babelrc', this.props.includeBrowserPackaging],
       ['rollup.config.js', 'rollup.config.js', this.props.includeBrowserPackaging],
     ].forEach(item => {

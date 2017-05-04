@@ -32,7 +32,6 @@ describe('generator-npm-package:app', function () {
       'README.md',
       'LICENSE',
       'lib/index.js',
-      'test/bootstrap.js',
     ]);
   });
 
