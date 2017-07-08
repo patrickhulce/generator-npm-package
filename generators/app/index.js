@@ -76,7 +76,7 @@ module.exports = yeoman.Base.extend({
 
     var dependencies = [
       'mocha', 'sinon', 'sinon-chai', 'chai', '@patrickhulce/lint',
-      'cz-conventional-changelog', 'istanbul', 'semantic-release'
+      'cz-conventional-changelog', 'nyc', 'semantic-release'
     ];
 
     if (yo.props.includeBrowserPackaging) {
