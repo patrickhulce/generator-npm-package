@@ -53,6 +53,7 @@ module.exports = yeoman.Base.extend({
       ['LICENSE', 'LICENSE'],
       ['README.md', 'README.md'],
       ['gitignore', '.gitignore'],
+      ['npmignore', '.npmignore'],
       ['travis.yml', '.travis.yml'],
       ['package.json', 'package.json'],
       ['index.js', 'lib/index.js'],
