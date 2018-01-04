@@ -9,12 +9,13 @@ module.exports = yeoman.Base.extend({
       'Welcome to the funkadelic ' + chalk.red('generator-npm-package') + ' generator!'
     ));
 
+    var defaultAppName = this.appname.replace(/\s+/g, '-');
     var prompts = [
       {
         type: 'input',
         name: 'name',
         message: 'What is the module\'s name?',
-        default: this.appname
+        default: defaultAppName,
       },
       {
         type: 'input',
@@ -26,16 +27,19 @@ module.exports = yeoman.Base.extend({
         type: 'confirm',
         name: 'includeBrowserPackaging',
         message: 'Include browser packaging?',
+        default: false,
       },
       {
         type: 'confirm',
         name: 'initGitHub',
         message: 'Create the repo on GitHub?',
+        default: false,
       },
       {
         type: 'confirm',
         name: 'initSemanticRelease',
         message: 'Setup npm releases?',
+        default: false,
       }
     ];
 
