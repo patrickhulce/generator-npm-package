@@ -1,6 +1,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var envScripts = require('./env-scripts.json');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -21,7 +22,12 @@ module.exports = yeoman.Base.extend({
         type: 'input',
         name: 'description',
         message: 'How would you describe it?',
-        default: `The best ${this.appname} around.`,
+        default: `The best ${defaultAppName} around.`,
+      },
+      {
+        type: 'confirm',
+        name: 'useTypescript',
+        message: 'Use TypeScript?',
       },
       {
         type: 'confirm',
@@ -49,6 +55,7 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
+    var includeBuildProcess = this.props.includeBrowserPackaging || this.props.useTypescript;
     [
       ['LICENSE', 'LICENSE'],
       ['README.md', 'README.md'],
@@ -56,8 +63,9 @@ module.exports = yeoman.Base.extend({
       ['npmignore', '.npmignore'],
       ['travis.yml', '.travis.yml'],
       ['package.json', 'package.json'],
-      ['index.js', 'lib/index.js'],
+      ['index.js', this.props.useTypescript ? 'lib/index.ts' : 'lib/index.js'],
       ['index.test.js', 'test/index.test.js'],
+      ['tsconfig.json', 'tsconfig.json', this.props.useTypescript],
       ['babelrc', '.babelrc', this.props.includeBrowserPackaging],
       ['rollup.config.js', 'rollup.config.js', this.props.includeBrowserPackaging],
     ].forEach(item => {
@@ -70,9 +78,29 @@ module.exports = yeoman.Base.extend({
       this.fs.copyTpl(src, dest, {
         name: this.props.name,
         description: this.props.description,
-        includeBrowserPackaging: this.props.includeBrowserPackaging
+        includeBuildProcess: includeBuildProcess,
+        includeBrowserPackaging: this.props.includeBrowserPackaging,
+        includeTypescript: this.props.useTypescript,
       });
     });
+
+    var package = this.fs.readJSON('package.json');
+    package.scripts = {};
+    Object.assign(package.scripts, envScripts.default);
+    if (this.props.useTypescript && this.props.includeBrowserPackaging) {
+      Object.assign(package.scripts, envScripts.buildProcess);
+      Object.assign(package.scripts, envScripts.ts);
+      Object.assign(package.scripts, envScripts.rollup);
+      Object.assign(package.scripts, envScripts.tsRollup);
+    } else if (this.props.useTypescript) {
+      Object.assign(package.scripts, envScripts.buildProcess);
+      Object.assign(package.scripts, envScripts.ts);
+    } else if (this.props.includeBrowserPackaging) {
+      Object.assign(package.scripts, envScripts.buildProcess);
+      Object.assign(package.scripts, envScripts.rollup);
+    }
+
+    this.fs.writeJSON('package.json', package);
   },
 
   install: function () {
@@ -83,6 +111,10 @@ module.exports = yeoman.Base.extend({
       'mocha', 'sinon', 'sinon-chai', 'chai', '@patrickhulce/lint',
       'cz-conventional-changelog', 'nyc', 'semantic-release'
     ];
+
+    if (yo.props.useTypescript) {
+      dependencies.push('typescript', 'tslint');
+    }
 
     if (yo.props.includeBrowserPackaging) {
       dependencies.push('babel', 'babel-cli', 'babel-preset-es2015', 'rollup', 'rollup-plugin-babel');

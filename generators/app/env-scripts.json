@@ -1,0 +1,27 @@
+{
+  "default": {
+    "test": "npm run test:lint && npm run test:unit",
+    "test:unit": "mocha --reporter spec 'test/**/*.test.js'",
+    "test:lint": "lint",
+    "test:coverage": "nyc npm run test:unit",
+    "test:watch": "mocha --watch --reporter dot 'test/**/*.test.js'",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "buildProcess": {
+    "clean": "rm -fR dist/",
+    "rebuild": "npm run clean && npm run build",
+    "prepublish": "npm run rebuild"
+  },
+  "ts": {
+    "build": "npm run build:ts",
+    "build:ts": "tsc",
+    "test:unit": "mocha --require source-map-support/register --reporter spec 'test/**/*.test.js'"
+  },
+  "rollup": {
+    "build": "npm run build:rollup",
+    "build:rollup": "babel lib --out-dir dist/ && BABEL_ENV=rollup rollup -c rollup.config.js"
+  },
+  "tsRollup": {
+    "build": "npm run build:ts && npm run build:rollup"
+  }
+}

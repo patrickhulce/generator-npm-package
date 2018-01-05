@@ -1,3 +1,9 @@
 node_modules/
 coverage/
-npm-debug.log
+.nyc_output/
+npm-debug.log<% if (includeTypescript) { %>
+
+lib/**/*.js
+lib/**/*.js.map
+lib/**/*.d.ts
+<% } %>

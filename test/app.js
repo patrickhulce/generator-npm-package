@@ -13,6 +13,7 @@ describe('generator-npm-package:app', function () {
         description: 'sample description',
         initGitHub: false,
         initSemanticRelease: false,
+        useTypescript: true,
         includeBrowserPackaging: true,
       })
       .inTmpDir(function (dir) {
@@ -29,9 +30,10 @@ describe('generator-npm-package:app', function () {
       'package.json',
       'yarn.lock',
       'rollup.config.js',
+      'tsconfig.json',
       'README.md',
       'LICENSE',
-      'lib/index.js',
+      'lib/index.ts',
     ]);
   });
 
