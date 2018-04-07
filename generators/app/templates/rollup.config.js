@@ -1,11 +1,10 @@
 const babel = require('rollup-plugin-babel')
 
 module.exports = {
-  entry: '<%= includeTypescript ? "dist" : "lib" %>/index.js',
-  moduleName: '<%= name %>',
+  input: '<%= includeTypescript ? "dist" : "lib" %>/index.js',
   plugins: [babel()],
-  targets: [
-    {dest: 'dist/bundle.js', format: 'umd'},
-    {dest: 'dist/bundle.cjs.js', format: 'cjs'},
+  output: [
+    {file: 'dist/bundle.js', format: 'umd', name: '<%= name %>'},
+    {file: 'dist/bundle.cjs.js', format: 'cjs', name: '<%= name %>'},
   ],
 }
