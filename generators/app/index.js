@@ -66,6 +66,7 @@ module.exports = yeoman.Base.extend({
       ['index.js', this.props.useTypescript ? 'lib/index.ts' : 'lib/index.js'],
       ['index.test.js', 'test/index.test.js'],
       ['tsconfig.json', 'tsconfig.json', this.props.useTypescript],
+      ['jest.config.js', 'jest.config.js', this.props.useTypescript],
       ['babelrc', '.babelrc', this.props.includeBrowserPackaging],
       ['rollup.config.js', 'rollup.config.js', this.props.includeBrowserPackaging],
     ].forEach(item => {
@@ -108,12 +109,11 @@ module.exports = yeoman.Base.extend({
     var done = this.async();
 
     var dependencies = [
-      'mocha', 'sinon', 'sinon-chai', 'chai', '@patrickhulce/lint',
-      'cz-conventional-changelog', 'nyc', 'semantic-release'
+      'jest', '@patrickhulce/lint', 'semantic-release@^11.0.0',
     ];
 
     if (yo.props.useTypescript) {
-      dependencies.push('typescript', 'tslint');
+      dependencies.push('typescript', 'tslint', 'ts-jest');
     }
 
     if (yo.props.includeBrowserPackaging) {

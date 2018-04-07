@@ -1,6 +1,6 @@
 {
   "name": "<%= name %>",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "description": "<%= description %>",
   "main": "./lib/index.js",
   "scripts": {
@@ -12,13 +12,8 @@
   },
   "author": "Patrick Hulce <patrick.hulce@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/patrickhulce/<%= name %>#readme",
   "bugs": {
     "url": "https://github.com/patrickhulce/<%= name %>/issues"
-  },
-  "homepage": "https://github.com/patrickhulce/<%= name %>#readme",
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }

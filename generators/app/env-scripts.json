@@ -1,11 +1,9 @@
 {
   "default": {
     "test": "npm run test:lint && npm run test:unit",
-    "test:unit": "mocha --reporter spec 'test/**/*.test.js'",
+    "test:unit": "jest",
     "test:lint": "lint",
-    "test:coverage": "nyc npm run test:unit",
-    "test:watch": "mocha --watch --reporter dot 'test/**/*.test.js'",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "buildProcess": {
     "clean": "rm -fR dist/",
@@ -14,8 +12,7 @@
   },
   "ts": {
     "build": "npm run build:ts",
-    "build:ts": "tsc",
-    "test:unit": "mocha --require source-map-support/register --reporter spec 'test/**/*.test.js'"
+    "build:ts": "tsc"
   },
   "rollup": {
     "build": "npm run build:rollup",

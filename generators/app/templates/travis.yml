@@ -4,16 +4,17 @@ cache: yarn
 notifications:
   email: false
 node_js:
-  - v7
+  - v9
+  - v8
   - v6
 before_install:
-  - npm install -g coveralls nyc
+  - npm install -g yarn coveralls nyc
 script:
-<% if (includeBrowserPackaging) { %>
-  - npm run rebuild
+<% if (includeBrowserPackaging || includeTypescript) { %>
+  - yarn rebuild
 <% } -%>
-  - npm run test:lint
-  - npm run test:coverage
+  - yarn test:lint
+  - yarn test:unit --coverage --runInBand --verbose
 after_success:
-  - nyc report --reporter=text-lcov | coveralls || echo 'Failed to upload to coveralls...'
-  - npm run semantic-release
+  - cat coverage/lcov.info | coveralls || echo 'Failed to upload to coveralls...'
+  - yarn semantic-release

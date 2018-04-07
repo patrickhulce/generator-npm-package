@@ -1,7 +1,7 @@
 const babel = require('rollup-plugin-babel')
 
 module.exports = {
-  entry: 'lib/index.js',
+  entry: '<%= includeTypescript ? "dist" : "lib" %>/index.js',
   moduleName: '<%= name %>',
   plugins: [babel()],
   targets: [
